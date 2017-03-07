@@ -1,6 +1,6 @@
 {
   "name": "afosto/shopctrl",
-  "description": "Afosto Sale Supply client",
+  "description": "Afosto ShopCtrl client",
   "type": "package",
   "keywords": [
     "afosto",
@@ -17,7 +17,7 @@
   ],
   "require": {
     "guzzlehttp/guzzle": "^6.2",
-    "doctrine/inflector": "^1.1",
+    "doctrine/inflector": "^v1.1",
     "afosto/bp": "^2.0"
   },
   "require-dev": {
