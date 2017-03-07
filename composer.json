@@ -17,7 +17,7 @@
   ],
   "require": {
     "guzzlehttp/guzzle": "^6.2",
-    "doctrine/inflector": "^v1.1",
+    "doctrine/inflector": "v1.1.0",
     "afosto/bp": "^2.0"
   },
   "require-dev": {
