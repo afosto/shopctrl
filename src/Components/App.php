@@ -86,6 +86,14 @@ class App {
     }
 
     /**
+     * @param $key
+     * @param $value
+     */
+    public function setSetting($key, $value) {
+        $this->_settings->{$key} = $value;
+    }
+
+    /**
      * @return Client
      */
     public function getClient() {

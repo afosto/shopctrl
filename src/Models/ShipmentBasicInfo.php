@@ -42,16 +42,16 @@ class ShipmentBasicInfo extends Model {
         return [
             ['id', 'integer', false],
             ['shippingCode', 'string', false, 200],
-            ['createTimestamp', 'date', true],
+            ['createTimestamp', '\DateTime', true],
             ['shopId', 'integer', false],
             ['orderId', 'integer', true],
             ['orderCode', 'string', false],
             ['warehouseId', 'integer', false],
             ['parcelId', 'integer', false],
-            ['pickedTimestamp', 'date', false],
-            ['packedTimestamp', 'date', false],
-            ['shippedTimestamp', 'date', false],
-            ['handOverTimestamp', 'date', false],
+            ['pickedTimestamp', '\DateTime', false],
+            ['packedTimestamp', '\DateTime', false],
+            ['shippedTimestamp', '\DateTime', false],
+            ['handOverTimestamp', '\DateTime', false],
             ['shipmentType', 'ShipmentTypeEnum', false],
         ];
     }

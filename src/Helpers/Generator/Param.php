@@ -66,7 +66,9 @@ class Param {
             case 'integer':
             case 'string':
             case 'boolean':
+                break;
             case 'date':
+                $this->type = '\DateTime';
                 break;
             case 'decimal number':
                 $this->type = 'float';

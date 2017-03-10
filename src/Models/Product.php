@@ -106,9 +106,9 @@ class Product extends Model {
             ['customerMustAskForPrice', 'boolean', true],
             ['productVariantParentId', 'integer', false],
             ['variantInfo', 'string', false, 100],
-            ['creationDate', 'date', true],
+            ['creationDate', '\DateTime', true],
             ['mainImageFileId', 'integer', false],
-            ['mainImageChangedTimestamp', 'date', false],
+            ['mainImageChangedTimestamp', '\DateTime', false],
             ['keepStock', 'boolean', true],
             ['minimumStock', 'float', true],
             ['qtyAvailable', 'float', true],
@@ -139,7 +139,7 @@ class Product extends Model {
             ['code', 'string', true, 100],
             ['name', 'string', false, 400],
             ['type', 'integer', false],
-            ['changedTimestamp', 'date', false],
+            ['changedTimestamp', '\DateTime', false],
         ];
     }
 }

@@ -51,7 +51,8 @@ class Scraper extends Command {
      */
     public function execute(InputInterface $input, OutputInterface $output) {
         $output->writeln('Scraping ' . self::BASE . $input->getArgument('uri'));
-        $crawler = new Crawler((string)$this->_client->get($input->getArgument('uri'))->getBody());
+        $html = (string)$this->_client->get($input->getArgument('uri'))->getBody();
+        $crawler = new Crawler($html);
 
         $output->writeln('Parsing');
         $table = $crawler->filter('table')->slice(($input->getArgument('tableNumber') - 1), 1);
