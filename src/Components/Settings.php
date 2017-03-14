@@ -3,6 +3,7 @@
 namespace Afosto\ShopCtrl\Components;
 
 use Afosto\ShopCtrl\Helpers\Exceptions\AppException;
+use Afosto\ShopCtrl\Models\Culture;
 use Afosto\ShopCtrl\Models\ExchangeRate;
 use Afosto\ShopCtrl\Models\OrderStatus;
 use Afosto\ShopCtrl\Models\PaymentType;
@@ -16,6 +17,7 @@ use Afosto\ShopCtrl\Models\Currency;
  * @property string         $username
  * @property string         $password
  * @property integer        $cultureId
+ * @property Culture[]      $cultures
  * @property PaymentType[]  $paymentTypes
  * @property OrderStatus[]  $orderStatusses
  * @property ExchangeRate[] $exchangeRates
@@ -30,6 +32,7 @@ class Settings extends Model {
             ['username', 'string', true],
             ['password', 'string', true],
             ['cultureId', 'integer', false],
+            ['cultures', 'Culture[]', false],
             ['paymentTypes', 'PaymentType[]', false],
             ['orderStatusses', 'OrderStatus[]', false],
             ['exchangeRates', 'ExchangeRate[]', false],
@@ -42,6 +45,7 @@ class Settings extends Model {
         $this->orderStatusses = OrderStatus::model()->findAll();
         $this->exchangeRates = ExchangeRate::model()->findAll();
         $this->currencies = Currency::model()->findAll();
+        $this->cultures = Culture::model()->findAll();
     }
 
     public function getPaymentTypeId($code) {
