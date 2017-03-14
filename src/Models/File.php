@@ -25,7 +25,7 @@ class File extends Model {
 
     public function getRules() {
         return [
-            ['id', 'integer', true],
+            ['id', 'integer', false],
             ['filename', 'string', false],
             ['changedTimestamp', '\DateTime', false],
             ['createdTimestamp', '\DateTime', false],
