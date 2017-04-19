@@ -1,8 +1,11 @@
 <?php
 namespace Afosto\ShopCtrl\Models;
 
+use Afosto\ShopCtrl\Components\App;
 use Afosto\ShopCtrl\Components\Operations\Find;
 use Afosto\ShopCtrl\Components\Model;
+use Afosto\ShopCtrl\Helpers\Exceptions\ApiException;
+use GuzzleHttp\Exception\ClientException;
 
 /**
  * @property integer           $shopGroupId                     Gets or sets the shop group identifier.
@@ -162,5 +165,29 @@ class Product extends Model {
             ['type', 'integer', false],
             ['changedTimestamp', '\DateTime', false],
         ];
+    }
+
+    /**
+     * @param string $code the product sku
+     *
+     * @return static
+     * @throws ApiException
+     */
+    public function findByCode($code) {
+        try {
+            $response = App::getInstance()->getClient()->get('v1/ShopGroup/' . App::getInstance()
+                                                                                  ->getSetting('shopId') . '/Products/' . $code);
+        } catch (ClientException $e) {
+            throw new ApiException((string)$e->getResponse()->getBody());
+        }
+        $this->validateResponse($response);
+
+        $body = \GuzzleHttp\json_decode((string)$response->getBody());
+
+        $model = new static();
+        $model->setAttributes($body);
+        $model->validate();
+
+        return $model;
     }
 }
