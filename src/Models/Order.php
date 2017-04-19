@@ -172,8 +172,7 @@ class Order extends Model {
     }
 
     protected function findAllUri() {
-        return 'v1' . DIRECTORY_SEPARATOR . 'Shops' . DIRECTORY_SEPARATOR .
-            App::getInstance()->getSetting('shopId') . DIRECTORY_SEPARATOR . $this->getMethod();
+        return 'v1/Shops/' . App::getInstance()->getSetting('shopId') . '/' . $this->getMethod();
     }
 
     protected function createUri() {
