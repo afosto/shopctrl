@@ -1,7 +1,11 @@
 <?php
 namespace Afosto\ShopCtrl\Models;
 
+use Afosto\ShopCtrl\Components\App;
 use Afosto\ShopCtrl\Components\Model;
+use Afosto\ShopCtrl\Components\Operations\Find;
+use Afosto\ShopCtrl\Helpers\Exceptions\ApiException;
+use GuzzleHttp\Exception\ClientException;
 
 /**
  * @property integer   $id                  Gets or sets the identifier.
@@ -12,6 +16,9 @@ use Afosto\ShopCtrl\Components\Model;
  * @property string    $base64Data          Gets or sets the base64 data.
  */
 class File extends Model {
+
+    use Find;
+
     public function getMap() {
         return [
             'id'               => 'Id',
