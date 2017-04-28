@@ -18,15 +18,24 @@ trait FindAll {
      */
     abstract protected function validateResponse(ResponseInterface $response);
 
+    /**
+     * @return mixed
+     */
     abstract protected function getMethod();
 
     /**
+     * @param null $uri
+     *
      * @return static[]
      * @throws ApiException
      */
-    public function findAll() {
+    public function findAll($uri = null) {
+        if ($uri === null) {
+            $uri = $this->findAllUri();
+        }
+
         try {
-            $response = App::getInstance()->getClient()->get($this->findAllUri());
+            $response = App::getInstance()->getClient()->get($uri);
         } catch (ClientException $e) {
             throw new ApiException((string)$e->getRequest()->getUri() . ' | ' . (string)$e->getResponse()->getBody());
         }
@@ -34,6 +43,7 @@ trait FindAll {
         $this->validateResponse($response);
 
         $models = [];
+
         foreach (\GuzzleHttp\json_decode((string)$response->getBody(), true) as $attributes) {
             $model = new static();
 

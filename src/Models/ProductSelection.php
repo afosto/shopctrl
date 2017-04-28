@@ -15,6 +15,7 @@ use Afosto\ShopCtrl\Components\App;
  * @property float   $qtyAvailable          Gets or sets the qty available.
  * @property float   $qtyOnHand             Gets or sets the qty on hand.
  * @property float   $qtyReserved           Gets or sets the qty reserved.
+ * @property integer $shopId                Gets or sets the shopId.
  */
 class ProductSelection extends Model {
 
@@ -31,6 +32,7 @@ class ProductSelection extends Model {
             'qtyAvailable'       => 'QtyAvailable',
             'qtyOnHand'          => 'QtyOnHand',
             'qtyReserved'        => 'QtyReserved',
+            'shopId'             => 'ShopId',
         ];
     }
 
@@ -45,11 +47,24 @@ class ProductSelection extends Model {
             ['qtyAvailable', 'float', true],
             ['qtyOnHand', 'float', true],
             ['qtyReserved', 'float', true],
+            ['shopId', 'integer', false],
         ];
     }
 
+    /**
+     * @return string
+     */
     protected function findAllUri() {
         return "/v1/Shops/" . App::getInstance()->getSetting('shopId') . "/ActiveProductSelectionProducts";
+    }
+
+    /**
+     * @param $id
+     *
+     * @return static[]
+     */
+    public function findAllForProduct($id) {
+        return $this->findAll("v1/Products/" . $id . "/ProductSelectionProducts");
     }
 
 }

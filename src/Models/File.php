@@ -1,11 +1,8 @@
 <?php
 namespace Afosto\ShopCtrl\Models;
 
-use Afosto\ShopCtrl\Components\App;
 use Afosto\ShopCtrl\Components\Model;
 use Afosto\ShopCtrl\Components\Operations\Find;
-use Afosto\ShopCtrl\Helpers\Exceptions\ApiException;
-use GuzzleHttp\Exception\ClientException;
 
 /**
  * @property integer   $id                  Gets or sets the identifier.
