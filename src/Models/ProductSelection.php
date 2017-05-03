@@ -67,4 +67,22 @@ class ProductSelection extends Model {
         return $this->findAll("v1/Products/" . $id . "/ProductSelectionProducts");
     }
 
+    /**
+     * Helper function
+     *
+     * @param $id
+     * @param $shopId
+     *
+     * @return null|static
+     */
+    public function findForShop($id, $shopId) {
+        foreach ($this->findAllForProduct($id) as $productSelection) {
+            if ($productSelection->shopId == $shopId) {
+                return $productSelection;
+            }
+        }
+
+        return null;
+    }
+
 }
