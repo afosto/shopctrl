@@ -20,14 +20,15 @@ trait Find {
     abstract protected function getMethod();
 
     /**
-     * @param $id
+     * @param null $id
+     * @param null $uri
      *
      * @return static
      * @throws ApiException
      */
-    public function find($id) {
+    public function find($id = null, $uri = null) {
         try {
-            $response = App::getInstance()->getClient()->get($this->findUri($id));
+            $response = App::getInstance()->getClient()->get(($uri === null) ? $this->findUri($id) : $uri);
         } catch (ClientException $e) {
             throw new ApiException((string)$e->getResponse()->getBody());
         }

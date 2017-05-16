@@ -24,18 +24,43 @@ trait FindAll {
     abstract protected function getMethod();
 
     /**
-     * @param null $uri
+     * Limit the amount of results that should me formatted / returned
+     * @var integer
+     */
+    protected $limit;
+
+    /**
+     * Use in combination with limit
+     * @var integer
+     */
+    protected $offset;
+
+    /**
+     * Use to define limits
+     *
+     * @param $limit
+     * @param $offset
+     *
+     * @return $this
+     */
+    public function setLimit($limit, $offset) {
+        $this->offset = $offset;
+        $this->limit = $limit;
+
+        return $this;
+    }
+
+    /**
+     * Find all method
+     *
+     * @param string $uri
      *
      * @return static[]
      * @throws ApiException
      */
     public function findAll($uri = null) {
-        if ($uri === null) {
-            $uri = $this->findAllUri();
-        }
-
         try {
-            $response = App::getInstance()->getClient()->get($uri);
+            $response = App::getInstance()->getClient()->get(($uri === null) ? $this->findAllUri() : $uri);
         } catch (ClientException $e) {
             throw new ApiException((string)$e->getRequest()->getUri() . ' | ' . (string)$e->getResponse()->getBody());
         }
@@ -43,8 +68,7 @@ trait FindAll {
         $this->validateResponse($response);
 
         $models = [];
-
-        foreach (\GuzzleHttp\json_decode((string)$response->getBody(), true) as $attributes) {
+        foreach ($this->_getResults($response) as $attributes) {
             $model = new static();
 
             $model->setAttributes($attributes);
@@ -61,6 +85,19 @@ trait FindAll {
      */
     protected function findAllUri() {
         return 'v1/' . $this->getMethod();
+    }
+
+    /**
+     * @param ResponseInterface $response
+     *
+     * @return array
+     */
+    private function _getResults(ResponseInterface $response) {
+        if ($this->offset !== null && $this->limit !== null) {
+            return array_slice(\GuzzleHttp\json_decode((string)$response->getBody(), true), (int)$this->offset, (int)$this->limit);
+        } else {
+            return \GuzzleHttp\json_decode((string)$response->getBody(), true);
+        }
     }
 
 }
