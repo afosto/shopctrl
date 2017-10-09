@@ -1,8 +1,10 @@
 <?php
 namespace Afosto\ShopCtrl\Models;
 
+use Afosto\ShopCtrl\Components\App;
 use Afosto\ShopCtrl\Components\Model;
 use Afosto\ShopCtrl\Components\Operations\Find;
+use Afosto\ShopCtrl\Components\Operations\FindAll;
 
 /**
  * @property \DateTime              $changedTimestamp        Gets or sets the changed timestamp.
@@ -22,7 +24,7 @@ use Afosto\ShopCtrl\Components\Operations\Find;
  */
 class ProductGroup extends Model {
 
-    use Find {
+    use Find, FindAll {
         find as parentFind;
     }
 
@@ -47,6 +49,14 @@ class ProductGroup extends Model {
         return self::$_cache[$id];
     }
 
+    /**
+     * Returns the url to find all productGroups for a given shop group
+     * @return string
+     */
+    public function findAllUri() {
+        return '/v1/ShopGroups/' . App::getInstance()->getSetting('shopGroupId') . '/ProductGroups';
+    }
+
     public function getMap() {
         return [
             'changedTimestamp'     => 'ChangedTimestamp',
@@ -69,12 +79,12 @@ class ProductGroup extends Model {
     public function getRules() {
         return [
             ['changedTimestamp', '\DateTime', false],
-            ['shopGroupId', 'integer', true],
-            ['sequence', 'integer', true],
+            ['shopGroupId', 'integer', false],
+            ['sequence', 'integer', false],
             ['comment', 'string', false, 2147483647],
-            ['syncEnabled', 'boolean', true],
-            ['isActive', 'boolean', true],
-            ['includeInNavigation', 'boolean', true],
+            ['syncEnabled', 'boolean', false],
+            ['isActive', 'boolean', false],
+            ['includeInNavigation', 'boolean', false],
             ['imageFileId', 'integer', false],
             ['children', '[]', false],
             ['properties', 'ProductGroupProperty[]', false],

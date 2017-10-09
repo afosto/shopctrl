@@ -17,6 +17,8 @@ use Afosto\ShopCtrl\Models\Currency;
  * @property string         $username
  * @property string         $password
  * @property integer        $cultureId
+ * @property integer        $shopOwnerId
+ * @property integer        $shopGroupId
  * @property Culture[]      $cultures
  * @property PaymentType[]  $paymentTypes
  * @property OrderStatus[]  $orderStatusses
@@ -32,6 +34,8 @@ class Settings extends Model {
             ['username', 'string', true],
             ['password', 'string', true],
             ['cultureId', 'integer', false],
+            ['shopGroupId', 'integer', false],
+            ['shopOwnerId', 'integer', false],
             ['cultures', 'Culture[]', false],
             ['paymentTypes', 'PaymentType[]', false],
             ['orderStatusses', 'OrderStatus[]', false],
