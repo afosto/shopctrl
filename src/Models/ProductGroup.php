@@ -57,6 +57,17 @@ class ProductGroup extends Model {
         return '/v1/ShopGroups/' . App::getInstance()->getSetting('shopGroupId') . '/ProductGroups';
     }
 
+    /**
+     * Returns the root categories
+     * @return static[]
+     */
+    public function findRoots() {
+        return $this->findAll('/v1/ShopGroups/' . App::getInstance()->getSetting('shopGroupId') . '/RootProductGroups');
+    }
+
+    /**
+     * @return array
+     */
     public function getMap() {
         return [
             'changedTimestamp'     => 'ChangedTimestamp',
@@ -76,6 +87,9 @@ class ProductGroup extends Model {
         ];
     }
 
+    /**
+     * @return array
+     */
     public function getRules() {
         return [
             ['changedTimestamp', '\DateTime', false],
