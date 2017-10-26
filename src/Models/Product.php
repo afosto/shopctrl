@@ -11,6 +11,7 @@ use Afosto\ShopCtrl\Helpers\Exceptions\ApiException;
  * @property string            $eAN                             Gets or sets the European Article Number.
  * @property string            $note                            Gets or sets the note.
  * @property string            $refCode
+ * @property ProductBrand      $productBrand                    Gets or sets the product brand.
  * @property boolean           $customerMustAskForPrice         Gets or sets a value indicating whether the customer should not see the price, but must explicitly ask for it.
  * @property integer           $productVariantParentId          The Id to the ProductVariant parent. The Type of the product should be ProductVariant (2) when used.
  * @property string            $variantInfo                     This field contains a summary of the values of the Variation properties. This field is only used when the Type = ProductVariant (2). Eg: 'Black | XL'
