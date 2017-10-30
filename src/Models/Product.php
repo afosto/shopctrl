@@ -177,6 +177,23 @@ class Product extends Model {
     }
 
     /**
+     * Fix the breaking change on the API
+     *
+     * @return bool
+     */
+    public function allowIndividualSale() {
+        foreach ($this->properties as $property) {
+            if ($property->code == 'AllowIndividualSale') {
+                return boolval($property->value);
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Return the product by SKU
+     *
      * @param string $code the product sku
      *
      * @return static
