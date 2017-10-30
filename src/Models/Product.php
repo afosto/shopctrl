@@ -24,6 +24,7 @@ use Afosto\ShopCtrl\Helpers\Exceptions\ApiException;
  * @property float             $qtyAvailable                 Gets or sets the qty available.
  * @property float             $qtyOnHand                    Gets or sets the qty on hand.
  * @property float             $qtyReserved                  Gets or sets the qty reserved.
+ * @property boolean           $allowIndividualSale          When false, the product can only be purchased when defined as accessory (using the cross sell product relation).
  * @property boolean           $syncEnabled                  Gets or sets a value indicating whether [synchronize enabled].
  * @property boolean           $published                    Gets or sets a value indicating whether this is published.
  * @property float             $weight                       Gets or sets the weight.
@@ -96,6 +97,7 @@ class Product extends Model {
             'qtyAvailable'                 => 'QtyAvailable',
             'qtyOnHand'                    => 'QtyOnHand',
             'qtyReserved'                  => 'QtyReserved',
+            'allowIndividualSale'          => 'AllowIndividualSale',
             'syncEnabled'                  => 'SyncEnabled',
             'published'                    => 'Published',
             'weight'                       => 'Weight',
@@ -145,6 +147,7 @@ class Product extends Model {
             ['qtyAvailable', 'float', true],
             ['qtyOnHand', 'float', true],
             ['qtyReserved', 'float', true],
+            ['allowIndividualSale', 'boolean', true],
             ['syncEnabled', 'boolean', true],
             ['published', 'boolean', true],
             ['weight', 'float', false],
@@ -176,7 +179,24 @@ class Product extends Model {
         ];
     }
 
+    public function setAttributes($data) {
+        parent::setAttributes($data);
+
+        //Fix breaking change
+        if ($this->allowIndividualSale === null) {
+            $this->allowIndividualSale = true;
+            foreach ($this->properties as $property) {
+                if ($property->code == 'AllowIndividualSale') {
+                    $this->allowIndividualSale = ($property->value == 'true' ? true : false);
+                    break;
+                }
+            }
+        }
+    }
+
     /**
+     * Return the product by SKU
+     *
      * @param string $code the product sku
      *
      * @return static
