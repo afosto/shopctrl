@@ -182,12 +182,22 @@ class Product extends Model {
     public function setAttributes($data) {
         parent::setAttributes($data);
 
-        //Fix breaking change
+        //Fix breaking changes
         if ($this->allowIndividualSale === null) {
             $this->allowIndividualSale = true;
             foreach ($this->properties as $property) {
                 if ($property->code == 'AllowIndividualSale') {
                     $this->allowIndividualSale = ($property->value == 'true' ? true : false);
+                    break;
+                }
+            }
+        }
+
+        if ($this->customerMustAskForPrice === null) {
+            $this->customerMustAskForPrice = false;
+            foreach ($this->properties as $property) {
+                if ($property->code == 'CustomerMustAskForPrice') {
+                    $this->customerMustAskForPrice = ($property->value == 'true' ? true : false);
                     break;
                 }
             }
