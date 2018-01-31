@@ -187,7 +187,7 @@ class Product extends Model {
             $this->allowIndividualSale = true;
             foreach ($this->properties as $property) {
                 if ($property->code == 'AllowIndividualSale') {
-                    $this->allowIndividualSale = ($property->value == 'true' ? true : false);
+                    $this->allowIndividualSale = ($property->value == 'True' ? true : false);
                     break;
                 }
             }
@@ -197,7 +197,7 @@ class Product extends Model {
             $this->customerMustAskForPrice = false;
             foreach ($this->properties as $property) {
                 if ($property->code == 'CustomerMustAskForPrice') {
-                    $this->customerMustAskForPrice = ($property->value == 'true' ? true : false);
+                    $this->customerMustAskForPrice = ($property->value == 'True' ? true : false);
                     break;
                 }
             }
