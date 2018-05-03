@@ -23,7 +23,9 @@ trait Create {
                            ->getClient()
                            ->post($this->createUri(), ['json' => $this->getModel()]);
         } catch (ClientException $e) {
-            throw new ApiException((string)$e->getResponse()->getBody());
+            $e = new ApiException((string)$e->getResponse()->getBody());
+            $e->exception = $e;
+            throw $e;
         }
 
         $this->validateResponse($response);

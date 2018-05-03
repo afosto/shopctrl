@@ -7,12 +7,12 @@ use GuzzleHttp\Exception\ClientException;
 class ApiException extends \Exception {
 
     /**
-     * @var ClientException
+     * @var \Exception|ClientException
      */
-    private $previous;
+    public $exception;
 
     public function getResponse() {
-        return (string)$this->previous->getResponse()->getBody();
+        return (string)$this->exception->getResponse()->getBody();
     }
 
 }

@@ -7,7 +7,8 @@ use Afosto\ShopCtrl\Helpers\Exceptions\ApiException;
 use GuzzleHttp\Exception\ClientException;
 use Psr\Http\Message\ResponseInterface;
 
-trait FindAll {
+trait FindAll
+{
 
     private $_method;
 
@@ -43,7 +44,8 @@ trait FindAll {
      *
      * @return $this
      */
-    public function setLimit($limit, $offset) {
+    public function setLimit($limit, $offset)
+    {
         $this->offset = $offset;
         $this->limit = $limit;
 
@@ -58,11 +60,14 @@ trait FindAll {
      * @return static[]
      * @throws ApiException
      */
-    public function findAll($uri = null) {
+    public function findAll($uri = null)
+    {
         try {
             $response = App::getInstance()->getClient()->get(($uri === null) ? $this->findAllUri() : $uri);
         } catch (ClientException $e) {
-            throw new ApiException((string)$e->getRequest()->getUri() . ' | ' . (string)$e->getResponse()->getBody());
+            $e = new ApiException((string)$e->getRequest()->getUri() . ' | ' . (string)$e->getResponse()->getBody());
+            $e->exception = $e;
+            throw $e;
         }
 
         $this->validateResponse($response);
@@ -83,7 +88,8 @@ trait FindAll {
     /**
      * @return string
      */
-    protected function findAllUri() {
+    protected function findAllUri()
+    {
         return 'v1/' . $this->getMethod();
     }
 
@@ -92,9 +98,11 @@ trait FindAll {
      *
      * @return array
      */
-    private function _getResults(ResponseInterface $response) {
+    private function _getResults(ResponseInterface $response)
+    {
         if ($this->offset !== null && $this->limit !== null) {
-            return array_slice(\GuzzleHttp\json_decode((string)$response->getBody(), true), (int)$this->offset, (int)$this->limit);
+            return array_slice(\GuzzleHttp\json_decode((string)$response->getBody(), true), (int)$this->offset,
+                (int)$this->limit);
         } else {
             return \GuzzleHttp\json_decode((string)$response->getBody(), true);
         }

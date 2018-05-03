@@ -30,7 +30,9 @@ trait Find {
         try {
             $response = App::getInstance()->getClient()->get(($uri === null) ? $this->findUri($id) : $uri);
         } catch (ClientException $e) {
-            throw new ApiException((string)$e->getResponse()->getBody());
+            $e = new ApiException((string)$e->getResponse()->getBody());
+            $e->exception = $e;
+            throw $e;
         }
         $this->validateResponse($response);
 
