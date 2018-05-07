@@ -22,9 +22,9 @@ trait Create {
             $response = App::getInstance()
                            ->getClient()
                            ->post($this->createUri(), ['json' => $this->getModel()]);
-        } catch (ClientException $e) {
-            $e = new ApiException((string)$e->getResponse()->getBody());
-            $e->exception = $e;
+        } catch (ClientException $previous) {
+            $e = new ApiException((string)$previous->getResponse()->getBody());
+            $e->exception = $previous;
             throw $e;
         }
 

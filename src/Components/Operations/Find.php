@@ -29,9 +29,9 @@ trait Find {
     public function find($id = null, $uri = null) {
         try {
             $response = App::getInstance()->getClient()->get(($uri === null) ? $this->findUri($id) : $uri);
-        } catch (ClientException $e) {
-            $e = new ApiException((string)$e->getResponse()->getBody());
-            $e->exception = $e;
+        } catch (ClientException $previous) {
+            $e = new ApiException((string)$previous->getResponse()->getBody());
+            $e->exception = $previous;
             throw $e;
         }
         $this->validateResponse($response);
