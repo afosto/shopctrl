@@ -64,9 +64,9 @@ trait FindAll
     {
         try {
             $response = App::getInstance()->getClient()->get(($uri === null) ? $this->findAllUri() : $uri);
-        } catch (ClientException $e) {
-            $e = new ApiException((string)$e->getRequest()->getUri() . ' | ' . (string)$e->getResponse()->getBody());
-            $e->exception = $e;
+        } catch (ClientException $previous) {
+            $e = new ApiException((string)$previous->getRequest()->getUri() . ' | ' . (string)$previous->getResponse()->getBody());
+            $e->exception = $previous;
             throw $e;
         }
 
