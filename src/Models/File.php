@@ -11,6 +11,7 @@ use Afosto\ShopCtrl\Components\Operations\Find;
  * @property \DateTime $createdTimestamp    Gets the date/time on which the file was created
  * @property integer   $sequence            Gets or sets the sequence.
  * @property string    $base64Data          Gets or sets the base64 data.
+ * @property string    $checksum            Gets or sets the checksum data.
  */
 class File extends Model {
 
@@ -24,6 +25,7 @@ class File extends Model {
             'createdTimestamp' => 'CreatedTimestamp',
             'sequence'         => 'Sequence',
             'base64Data'       => 'Base64Data',
+            'checksum'         => 'Checksum',
         ];
     }
 
@@ -35,7 +37,17 @@ class File extends Model {
             ['createdTimestamp', '\DateTime', false],
             ['sequence', 'integer', false],
             ['base64Data', 'string', false],
+            ['checksum', 'string', false],
         ];
+    }
+
+    /**
+     * Returns true in case download was complete
+     *
+     * @return bool
+     */
+    public function isComplete() {
+        return $this->checksum == sha1(base64_decode($this->base64Data));
     }
 
 }
