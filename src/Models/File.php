@@ -1,4 +1,5 @@
 <?php
+
 namespace Afosto\ShopCtrl\Models;
 
 use Afosto\ShopCtrl\Components\Model;
@@ -13,11 +14,13 @@ use Afosto\ShopCtrl\Components\Operations\Find;
  * @property string    $base64Data          Gets or sets the base64 data.
  * @property string    $checksum            Gets or sets the checksum data.
  */
-class File extends Model {
+class File extends Model
+{
 
     use Find;
 
-    public function getMap() {
+    public function getMap()
+    {
         return [
             'id'               => 'Id',
             'filename'         => 'Filename',
@@ -29,7 +32,8 @@ class File extends Model {
         ];
     }
 
-    public function getRules() {
+    public function getRules()
+    {
         return [
             ['id', 'integer', false],
             ['filename', 'string', false],
@@ -46,7 +50,8 @@ class File extends Model {
      *
      * @return bool
      */
-    public function isComplete() {
+    public function isComplete()
+    {
         return $this->checksum == sha1(base64_decode($this->base64Data));
     }
 

@@ -1,4 +1,5 @@
 <?php
+
 namespace Afosto\ShopCtrl\Models;
 
 use Afosto\ShopCtrl\Components\Model;
@@ -10,9 +11,11 @@ use Afosto\ShopCtrl\Components\Model;
  * @property string  $code                    Gets or sets the code.
  * @property string  $value                   Gets or sets the value.
  */
-class ProductProperty extends Model {
+class ProductProperty extends Model
+{
 
-    public function getMap() {
+    public function getMap()
+    {
         return [
             'cultureId'            => 'CultureId',
             'shopId'               => 'ShopId',
@@ -22,7 +25,8 @@ class ProductProperty extends Model {
         ];
     }
 
-    public function getRules() {
+    public function getRules()
+    {
         return [
             ['cultureId', 'integer', false],
             ['shopId', 'integer', false],

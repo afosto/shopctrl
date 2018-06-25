@@ -11,11 +11,13 @@ use Afosto\ShopCtrl\Components\Operations\FindAll;
  * @property string  $name           Gets or sets the name.
  * @property integer $shopOwnerId    Gets or sets the shop owner identifier.
  */
-class ShopGroup extends Model {
+class ShopGroup extends Model
+{
 
     use FindAll;
 
-    public function getMap() {
+    public function getMap()
+    {
         return [
             'id'          => 'Id',
             'name'        => 'Name',
@@ -23,7 +25,8 @@ class ShopGroup extends Model {
         ];
     }
 
-    public function getRules() {
+    public function getRules()
+    {
         return [
             ['id', 'integer', true],
             ['name', 'string', true, 50],
@@ -31,7 +34,8 @@ class ShopGroup extends Model {
         ];
     }
 
-    public function findAllUri() {
+    public function findAllUri()
+    {
         return 'v1/ShopOwners/' . App::getInstance()->getSetting('shopOwnerId') . '/ShopGroups';
     }
 

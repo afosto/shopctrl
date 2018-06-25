@@ -1,4 +1,5 @@
 <?php
+
 namespace Afosto\ShopCtrl\Models;
 
 use Afosto\ShopCtrl\Components\Model;
@@ -28,9 +29,11 @@ use Afosto\ShopCtrl\Components\Model;
  * @property string  $phone2                    Gets or sets the 2nd phone.
  * @property string  $stateProvince             Gets or sets the state or province.
  */
-class ContactInfo extends Model {
+class ContactInfo extends Model
+{
 
-    public function getMap() {
+    public function getMap()
+    {
         return [
             'id'                     => 'Id',
             'companyName'            => 'CompanyName',
@@ -58,7 +61,8 @@ class ContactInfo extends Model {
         ];
     }
 
-    public function getRules() {
+    public function getRules()
+    {
         return [
             ['id', 'integer', false],
             ['companyName', 'string', false, 100],

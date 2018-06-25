@@ -7,7 +7,8 @@ use Afosto\ShopCtrl\Helpers\Exceptions\ApiException;
 use GuzzleHttp\Exception\ClientException;
 use Psr\Http\Message\ResponseInterface;
 
-trait Find {
+trait Find
+{
 
     /**
      * @param ResponseInterface $response
@@ -26,7 +27,8 @@ trait Find {
      * @return static
      * @throws ApiException
      */
-    public function find($id = null, $uri = null) {
+    public function find($id = null, $uri = null)
+    {
         try {
             $response = App::getInstance()->getClient()->get(($uri === null) ? $this->findUri($id) : $uri);
         } catch (ClientException $previous) {
@@ -50,7 +52,8 @@ trait Find {
      *
      * @return string
      */
-    protected function findUri($id) {
+    protected function findUri($id)
+    {
         return 'v1/' . $this->getMethod() . '/' . $id;
     }
 

@@ -10,9 +10,10 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DomCrawler\Crawler;
 
-class Scraper extends Command {
+class Scraper extends Command
+{
 
-    const BASE = 'https://api.salesupply.com/Help/';
+    const BASE = 'https://azalp.shopctrl.com:52222/Help/';
 
     /**
      * @var Client
@@ -24,7 +25,8 @@ class Scraper extends Command {
      *
      * @param null $name
      */
-    public function __construct($name = null) {
+    public function __construct($name = null)
+    {
         parent::__construct($name);
         $this->_client = new Client([
             'base_uri' => self::BASE,
@@ -34,7 +36,8 @@ class Scraper extends Command {
     /**
      * Configure command
      */
-    public function configure() {
+    public function configure()
+    {
         $this->setName('scrape')->setDescription('Scraper for model data');
         $this->addArgument('uri', InputArgument::REQUIRED, 'What is the uri?');
         $this->addArgument('path', InputArgument::REQUIRED, 'Target path?');
@@ -49,7 +52,8 @@ class Scraper extends Command {
      *
      * @return void;
      */
-    public function execute(InputInterface $input, OutputInterface $output) {
+    public function execute(InputInterface $input, OutputInterface $output)
+    {
         $output->writeln('Scraping ' . self::BASE . $input->getArgument('uri'));
         $html = (string)$this->_client->get($input->getArgument('uri'))->getBody();
         $crawler = new Crawler($html);
@@ -67,7 +71,8 @@ class Scraper extends Command {
      * @param Param[]        $params
      * @param InputInterface $input
      */
-    protected function writeFile($params, InputInterface $input) {
+    protected function writeFile($params, InputInterface $input)
+    {
         $contents[] = '<?php';
 
         $nameSpaceSuffix = substr($input->getArgument('path'), 0, strrpos($input->getArgument('path'), '/'));
@@ -87,7 +92,8 @@ class Scraper extends Command {
      *
      * @return Param
      */
-    protected function parseNode($node) {
+    protected function parseNode($node)
+    {
         $line = [];
         foreach ($node->filter('td') as $td) {
             $line[] = trim(preg_replace('/\s+/', ' ', $td->textContent));
@@ -102,7 +108,8 @@ class Scraper extends Command {
      * @param InputInterface $input
      * @param                $contents
      */
-    private function _getRules($params, InputInterface $input, &$contents) {
+    private function _getRules($params, InputInterface $input, &$contents)
+    {
         $contents[] = 'public function getRules() {';
         $contents[] = 'return [';
         foreach ($params as $param) {
@@ -122,7 +129,8 @@ class Scraper extends Command {
      * @param InputInterface $input
      * @param                $contents
      */
-    private function _getDocBlock($params, InputInterface $input, &$contents) {
+    private function _getDocBlock($params, InputInterface $input, &$contents)
+    {
         $contents[] = '/**';
 
         foreach ($params as $param) {
@@ -138,7 +146,8 @@ class Scraper extends Command {
      * @param                $contents
      *
      */
-    private function _getMap($params, InputInterface $input, &$contents) {
+    private function _getMap($params, InputInterface $input, &$contents)
+    {
         $contents[] = 'public function getMap() {';
         $contents[] = 'return [';
         foreach ($params as $param) {

@@ -1,4 +1,5 @@
 <?php
+
 namespace Afosto\ShopCtrl\Models;
 
 use Afosto\ShopCtrl\Components\Model;
@@ -18,9 +19,11 @@ use Afosto\ShopCtrl\Components\Model;
  * @property \DateTime        $handOverTimestamp    The time the Shipment was communicated to 3rd party fulfilment.
  * @property ShipmentTypeEnum $shipmentType         The type of Shipment.
  */
-class ShipmentBasicInfo extends Model {
+class ShipmentBasicInfo extends Model
+{
 
-    public function getMap() {
+    public function getMap()
+    {
         return [
             'id'                => 'Id',
             'shippingCode'      => 'ShippingCode',
@@ -38,7 +41,8 @@ class ShipmentBasicInfo extends Model {
         ];
     }
 
-    public function getRules() {
+    public function getRules()
+    {
         return [
             ['id', 'integer', false],
             ['shippingCode', 'string', false, 200],

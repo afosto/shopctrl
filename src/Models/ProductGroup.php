@@ -1,4 +1,5 @@
 <?php
+
 namespace Afosto\ShopCtrl\Models;
 
 use Afosto\ShopCtrl\Components\App;
@@ -22,7 +23,8 @@ use Afosto\ShopCtrl\Components\Operations\FindAll;
  * @property integer                $parentProductGroupId    Gets or sets the parent product group identifier.
  * @property integer                $nrOfChilds              The number of child Product Groups.
  */
-class ProductGroup extends Model {
+class ProductGroup extends Model
+{
 
     use Find, FindAll {
         find as parentFind;
@@ -41,7 +43,8 @@ class ProductGroup extends Model {
      *
      * @return static
      */
-    public function find($id) {
+    public function find($id)
+    {
         if (!isset(self::$_cache[$id])) {
             self::$_cache[$id] = $this->parentFind($id);
         }
@@ -53,7 +56,8 @@ class ProductGroup extends Model {
      * Returns the url to find all productGroups for a given shop group
      * @return string
      */
-    public function findAllUri() {
+    public function findAllUri()
+    {
         return '/v1/ShopGroups/' . App::getInstance()->getSetting('shopGroupId') . '/ProductGroups';
     }
 
@@ -61,14 +65,16 @@ class ProductGroup extends Model {
      * Returns the root categories
      * @return static[]
      */
-    public function findRoots() {
+    public function findRoots()
+    {
         return $this->findAll('/v1/ShopGroups/' . App::getInstance()->getSetting('shopGroupId') . '/RootProductGroups');
     }
 
     /**
      * @return array
      */
-    public function getMap() {
+    public function getMap()
+    {
         return [
             'changedTimestamp'     => 'ChangedTimestamp',
             'shopGroupId'          => 'ShopGroupId',
@@ -90,7 +96,8 @@ class ProductGroup extends Model {
     /**
      * @return array
      */
-    public function getRules() {
+    public function getRules()
+    {
         return [
             ['changedTimestamp', '\DateTime', false],
             ['shopGroupId', 'integer', false],

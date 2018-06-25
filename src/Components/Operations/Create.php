@@ -7,7 +7,8 @@ use Afosto\ShopCtrl\Helpers\Exceptions\ApiException;
 use GuzzleHttp\Exception\ClientException;
 use Psr\Http\Message\ResponseInterface;
 
-trait Create {
+trait Create
+{
 
     abstract protected function getMethod();
 
@@ -17,7 +18,8 @@ trait Create {
      * @return static
      * @throws ApiException
      */
-    public function create() {
+    public function create()
+    {
         try {
             $response = App::getInstance()
                            ->getClient()
@@ -36,7 +38,8 @@ trait Create {
     /**
      * @return string
      */
-    protected function createUri() {
+    protected function createUri()
+    {
         return 'v1/' . $this->getMethod();
     }
 }

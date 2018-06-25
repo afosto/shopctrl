@@ -1,4 +1,5 @@
 <?php
+
 namespace Afosto\ShopCtrl\Models;
 
 use Afosto\ShopCtrl\Components\Operations\FindAll;
@@ -11,11 +12,13 @@ use Afosto\ShopCtrl\Components\Model;
  * @property string  $eMail               Gets or sets the e mail.
  * @property string  $contactReference    Gets or sets the contact reference.
  */
-class Customer extends Model {
+class Customer extends Model
+{
 
     use FindAll;
 
-    public function getMap() {
+    public function getMap()
+    {
         return [
             'id'               => 'Id',
             'fullName'         => 'FullName',
@@ -25,7 +28,8 @@ class Customer extends Model {
         ];
     }
 
-    public function getRules() {
+    public function getRules()
+    {
         return [
             ['id', 'integer', true],
             ['fullName', 'string', false, 100],

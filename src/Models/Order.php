@@ -9,9 +9,6 @@ use Afosto\ShopCtrl\Components\Operations\FindAll;
 use Afosto\ShopCtrl\Components\App;
 
 /**
- * Class Order
- * @package Afosto\ShopCtrl\Models\Set
- *
  * @property boolean             $recalculateTotalsOnSave       Gets or sets a value indicating whether we should recalculate the totals.
  * @property boolean             $synchronizeOrderParameters    Gets or sets a value indicating whether we should synchronize the order parameters.
  * @property boolean             $autoCreateCustomer            Gets or sets a value indicating whether a Customer must be created when not provided and can't be linked to an existing customer.
@@ -39,6 +36,7 @@ use Afosto\ShopCtrl\Components\App;
  * @property string              $customerCode                  Gets or sets the CustomerCode, as defined for the Customer. When adding/updating an Order, ShopCtrl will first try to find the Customer based on the provided CustuomerId. If not provided, the customer will be determined based on the provided CustomerCode.
  * @property string              $customerReference             Gets or sets the reference provided by the customer.
  * @property string              $customerNote                  Gets or sets the customer note.
+ * @property integer             $customerRating                This field is used for rating by the customer.
  * @property string              $shopNote                      Gets or sets the shop note.
  * @property string              $syncSource                    Gets or sets the synchronize source.
  * @property string              $customerIpaddress             Gets or sets the customer ipaddress.
@@ -61,11 +59,14 @@ use Afosto\ShopCtrl\Components\App;
  * @property integer             $mainStatusId                  Gets or sets the main status identifier.
  * @property integer             $affiliateId                   Gets or sets the Affiliate identifier.
  */
-class Order extends Model {
+class Order extends Model
+{
+    const REVIEW_DISABLE_INVITE = -3;
 
     use Find, FindAll, Create;
 
-    public function getMap() {
+    public function getMap()
+    {
         return [
             'recalculateTotalsOnSave'    => 'RecalculateTotalsOnSave',
             'synchronizeOrderParameters' => 'SynchronizeOrderParameters',
@@ -94,6 +95,7 @@ class Order extends Model {
             'customerCode'               => 'CustomerCode',
             'customerReference'          => 'CustomerReference',
             'customerNote'               => 'CustomerNote',
+            'customerRating'             => 'CustomerRating',
             'shopNote'                   => 'ShopNote',
             'syncSource'                 => 'SyncSource',
             'customerIpaddress'          => 'CustomerIpaddress',
@@ -118,7 +120,8 @@ class Order extends Model {
         ];
     }
 
-    public function getRules() {
+    public function getRules()
+    {
         return [
             ['recalculateTotalsOnSave', 'boolean', false],
             ['synchronizeOrderParameters', 'boolean', false],
@@ -147,6 +150,7 @@ class Order extends Model {
             ['customerCode', 'string', false],
             ['customerReference', 'string', false, 50],
             ['customerNote', 'string', false, 2147483647],
+            ['customerRating', 'int', false],
             ['shopNote', 'string', false, 2147483647],
             ['syncSource', 'string', false, 50],
             ['customerIpaddress', 'string', false, 40],
@@ -171,11 +175,21 @@ class Order extends Model {
         ];
     }
 
-    protected function findAllUri() {
+    /**
+     * Do not send an invitation to review the order process
+     */
+    public function disableReviewInvitation()
+    {
+        $this->customerRating = self::REVIEW_DISABLE_INVITE;
+    }
+
+    protected function findAllUri()
+    {
         return 'v1/Shops/' . App::getInstance()->getSetting('shopId') . '/' . $this->getMethod();
     }
 
-    protected function createUri() {
+    protected function createUri()
+    {
         return $this->findAllUri();
     }
 

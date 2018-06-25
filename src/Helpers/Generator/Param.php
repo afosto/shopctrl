@@ -4,7 +4,8 @@ namespace Afosto\ShopCtrl\Helpers\Generator;
 
 use Doctrine\Common\Inflector\Inflector;
 
-class Param {
+class Param
+{
 
     /**
      * @var string
@@ -41,7 +42,8 @@ class Param {
      *
      * @param $lineData
      */
-    public function __construct($lineData) {
+    public function __construct($lineData)
+    {
         list($this->name, $this->description, $this->type, $this->additionalInformation) = $lineData;
         $this->_validateType();
         $this->_validateAdditionalInformation();
@@ -50,7 +52,8 @@ class Param {
     /**
      * @return string
      */
-    public function getLine() {
+    public function getLine()
+    {
         $name = Inflector::camelize($this->name);
         $required = ($this->required) ? 'true' : 'false';
         $line = rtrim("'$name', '$this->type', $required, $this->maxLength", ', ');
@@ -61,7 +64,8 @@ class Param {
     /**
      * Validator for type
      */
-    private function _validateType() {
+    private function _validateType()
+    {
         switch ($this->type) {
             case 'integer':
             case 'string':
@@ -82,7 +86,8 @@ class Param {
     /**
      * Validate the other table data
      */
-    private function _validateAdditionalInformation() {
+    private function _validateAdditionalInformation()
+    {
         if (strpos($this->additionalInformation, 'Required') !== false) {
             $this->required = true;
         } else {
@@ -99,7 +104,8 @@ class Param {
     /**
      * Format the type
      */
-    private function _formatType() {
+    private function _formatType()
+    {
         if (strpos($this->type, 'Collection of') !== false) {
             preg_match('/Collection of (.*)/', $this->type, $match);
             if ($match[1] != 'integer') {

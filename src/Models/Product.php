@@ -54,7 +54,8 @@ use Afosto\ShopCtrl\Helpers\Exceptions\ApiException;
  * @property integer           $type                         The ProductType, available: SimpleProduct = 0, ProductVariantParent = 1, ProductVariant = 2
  * @property \DateTime         $changedTimestamp             Gets the changed timestamp.
  */
-class Product extends Model {
+class Product extends Model
+{
 
     use Find;
 
@@ -66,7 +67,8 @@ class Product extends Model {
      *
      * @return null|string
      */
-    public function getPropertyForCulture($code, $cultureId = null) {
+    public function getPropertyForCulture($code, $cultureId = null)
+    {
         foreach ($this->properties as $property) {
             if ($property->cultureId == $cultureId && $property->code == $code) {
                 return $property->value;
@@ -79,7 +81,8 @@ class Product extends Model {
         return null;
     }
 
-    public function getMap() {
+    public function getMap()
+    {
         return [
             'shopGroupId'                  => 'ShopGroupId',
             'eAN'                          => 'EAN',
@@ -129,7 +132,8 @@ class Product extends Model {
         ];
     }
 
-    public function getRules() {
+    public function getRules()
+    {
         return [
             ['shopGroupId', 'integer', true],
             ['eAN', 'string', false],
@@ -179,7 +183,8 @@ class Product extends Model {
         ];
     }
 
-    public function setAttributes($data) {
+    public function setAttributes($data)
+    {
         parent::setAttributes($data);
 
         //Fix breaking changes
@@ -212,7 +217,8 @@ class Product extends Model {
      * @return static
      * @throws ApiException
      */
-    public function findByCode($code) {
+    public function findByCode($code)
+    {
         return $this->find(null, 'v1/ShopGroup/' . App::getInstance()
                                                       ->getSetting('shopId') . '/Products/' . $code);
     }

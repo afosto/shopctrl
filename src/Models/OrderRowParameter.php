@@ -1,16 +1,19 @@
 <?php
+
 namespace Afosto\ShopCtrl\Models;
 
 use Afosto\ShopCtrl\Components\Model;
 
 /**
- * @property string                    $key         Gets or sets the key.
- * @property string                    $value       Gets or sets the value.
+ * @property string  $key         Gets or sets the key.
+ * @property string  $value       Gets or sets the value.
  * @property integer $dataType    Specify the data type. Default type is String.
  */
-class OrderRowParameter extends Model {
+class OrderRowParameter extends Model
+{
 
-    public function getMap() {
+    public function getMap()
+    {
         return [
             'key'      => 'Key',
             'value'    => 'Value',
@@ -18,7 +21,8 @@ class OrderRowParameter extends Model {
         ];
     }
 
-    public function getRules() {
+    public function getRules()
+    {
         return [
             ['key', 'string', true, 50],
             ['value', 'string', false, 2147483647],

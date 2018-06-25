@@ -1,4 +1,5 @@
 <?php
+
 namespace Afosto\ShopCtrl\Models;
 
 use Afosto\ShopCtrl\Components\Model;
@@ -10,11 +11,13 @@ use Afosto\ShopCtrl\Components\Operations\FindAll;
  * @property string  $name      Gets or sets the name.
  * @property string  $symbol    Gets or sets the symbol.
  */
-class Currency extends Model {
+class Currency extends Model
+{
 
     use FindAll;
 
-    public function getMap() {
+    public function getMap()
+    {
         return [
             'id'     => 'Id',
             'code'   => 'Code',
@@ -23,7 +26,8 @@ class Currency extends Model {
         ];
     }
 
-    public function getRules() {
+    public function getRules()
+    {
         return [
             ['id', 'integer', true],
             ['code', 'string', true, 10],

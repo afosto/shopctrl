@@ -4,14 +4,16 @@ namespace Afosto\ShopCtrl\Helpers\Exceptions;
 
 use GuzzleHttp\Exception\ClientException;
 
-class ApiException extends \Exception {
+class ApiException extends \Exception
+{
 
     /**
      * @var \Exception|ClientException
      */
     public $exception;
 
-    public function getResponse() {
+    public function getResponse()
+    {
         return (string)$this->exception->getResponse()->getBody();
     }
 
