@@ -11,9 +11,11 @@ use Afosto\ShopCtrl\Components\Model;
  * @property integer $defaultCultureId     Gets or sets the default culture identifier.
  * @property boolean $active               Gets or sets a value indicating whether this is active.
  */
-class ShopOwner extends Model {
+class ShopOwner extends Model
+{
 
-    public function getMap() {
+    public function getMap()
+    {
         return [
             'id'                => 'Id',
             'companyName'       => 'CompanyName',
@@ -23,7 +25,8 @@ class ShopOwner extends Model {
         ];
     }
 
-    public function getRules() {
+    public function getRules()
+    {
         return [
             ['id', 'integer', true],
             ['companyName', 'string', true, 50],

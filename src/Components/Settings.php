@@ -25,9 +25,11 @@ use Afosto\ShopCtrl\Models\Currency;
  * @property ExchangeRate[] $exchangeRates
  * @property Currency[]     $currencies
  */
-class Settings extends Model {
+class Settings extends Model
+{
 
-    public function getRules() {
+    public function getRules()
+    {
         return [
             ['shopId', 'integer', false],
             ['baseUrl', 'string', true],
@@ -44,7 +46,8 @@ class Settings extends Model {
         ];
     }
 
-    public function init() {
+    public function init()
+    {
         $this->paymentTypes = PaymentType::model()->findAll();
         $this->orderStatusses = OrderStatus::model()->findAll();
         $this->exchangeRates = ExchangeRate::model()->findAll();
@@ -52,7 +55,8 @@ class Settings extends Model {
         $this->cultures = Culture::model()->findAll();
     }
 
-    public function getPaymentTypeId($code) {
+    public function getPaymentTypeId($code)
+    {
         foreach ($this->paymentTypes as $paymentType) {
             if (strtolower($paymentType->code) == strtolower($code)) {
                 return $paymentType->id;
@@ -61,7 +65,8 @@ class Settings extends Model {
         throw new AppException('Payment type not found for code: ' . $code);
     }
 
-    public function getOrderStatus($code) {
+    public function getOrderStatus($code)
+    {
         foreach ($this->orderStatusses as $orderStatus) {
             if (strtolower($orderStatus->code) == strtolower($code)) {
                 return $orderStatus->id;

@@ -1,4 +1,5 @@
 <?php
+
 namespace Afosto\ShopCtrl\Models;
 
 use Afosto\ShopCtrl\Components\Operations\FindAll;
@@ -17,11 +18,13 @@ use Afosto\ShopCtrl\Components\App;
  * @property float   $qtyReserved           Gets or sets the qty reserved.
  * @property integer $shopId                Gets or sets the shopId.
  */
-class ProductSelection extends Model {
+class ProductSelection extends Model
+{
 
     use FindAll;
 
-    public function getMap() {
+    public function getMap()
+    {
         return [
             'id'                 => 'Id',
             'active'             => 'Active',
@@ -36,7 +39,8 @@ class ProductSelection extends Model {
         ];
     }
 
-    public function getRules() {
+    public function getRules()
+    {
         return [
             ['id', 'integer', true],
             ['active', 'boolean', true],
@@ -54,7 +58,8 @@ class ProductSelection extends Model {
     /**
      * @return string
      */
-    protected function findAllUri() {
+    protected function findAllUri()
+    {
         return "/v1/Shops/" . App::getInstance()->getSetting('shopId') . "/ActiveProductSelectionProducts";
     }
 
@@ -63,7 +68,8 @@ class ProductSelection extends Model {
      *
      * @return static[]
      */
-    public function findAllForProduct($id) {
+    public function findAllForProduct($id)
+    {
         return $this->findAll("v1/Products/" . $id . "/ProductSelectionProducts");
     }
 
@@ -75,7 +81,8 @@ class ProductSelection extends Model {
      *
      * @return null|static
      */
-    public function findForShop($id, $shopId) {
+    public function findForShop($id, $shopId)
+    {
         foreach ($this->findAllForProduct($id) as $productSelection) {
             if ($productSelection->shopId == $shopId) {
                 return $productSelection;

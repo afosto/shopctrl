@@ -1,4 +1,5 @@
 <?php
+
 namespace Afosto\ShopCtrl\Models;
 
 use Afosto\ShopCtrl\Components\Model;
@@ -16,9 +17,11 @@ use Afosto\ShopCtrl\Components\Model;
  * @property date    $changedTimestamp    A timestamp indicating the last save.
  * @property date    $createdTimestamp    The create timestamp.
  */
-class ProductResource extends Model {
+class ProductResource extends Model
+{
 
-    public function getMap() {
+    public function getMap()
+    {
         return [
             'id'               => 'Id',
             'cultureId'        => 'CultureId',
@@ -34,7 +37,8 @@ class ProductResource extends Model {
         ];
     }
 
-    public function getRules() {
+    public function getRules()
+    {
         return [
             ['id', 'integer', true],
             ['cultureId', 'integer', false],

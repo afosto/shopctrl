@@ -1,4 +1,5 @@
 <?php
+
 namespace Afosto\ShopCtrl\Models;
 
 use Afosto\ShopCtrl\Components\Model;
@@ -9,9 +10,11 @@ use Afosto\ShopCtrl\Components\Model;
  * @property integer $quantity            Optionally specify the quantity.
  * @property integer $sequence            The display Sequence.
  */
-class ProductRelation extends Model {
+class ProductRelation extends Model
+{
 
-    public function getMap() {
+    public function getMap()
+    {
         return [
             'relatedProductId' => 'RelatedProductId',
             'relationType'     => 'RelationType',
@@ -20,7 +23,8 @@ class ProductRelation extends Model {
         ];
     }
 
-    public function getRules() {
+    public function getRules()
+    {
         return [
             ['relatedProductId', 'integer', true],
             ['relationType', 'integer', false],

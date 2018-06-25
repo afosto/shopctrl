@@ -5,7 +5,8 @@ namespace Afosto\ShopCtrl\Components;
 use Afosto\ShopCtrl\Helpers\Exceptions\AppException;
 use GuzzleHttp\Client;
 
-class App {
+class App
+{
 
     /**
      * @var Client
@@ -27,7 +28,8 @@ class App {
      *
      * @param Settings $settings
      */
-    public function __construct(Settings $settings) {
+    public function __construct(Settings $settings)
+    {
         if ($settings->validate()) {
             $this->_settings = $settings;
             $this->_client = new Client([
@@ -48,7 +50,8 @@ class App {
      * @return App
      * @throws AppException
      */
-    public static function getInstance() {
+    public static function getInstance()
+    {
         if (self::$_instance === null) {
             throw new AppException('Cannot call app that was not initialized');
         }
@@ -59,7 +62,8 @@ class App {
     /**
      * @param Settings $settings
      */
-    public static function init(Settings $settings) {
+    public static function init(Settings $settings)
+    {
         self::$_instance = new self($settings);
         self::getInstance()->getSettings()->init();
     }
@@ -70,7 +74,8 @@ class App {
      * @return mixed
      * @throws AppException
      */
-    public function getSetting($key) {
+    public function getSetting($key)
+    {
         if ($this->_settings->{$key} === null) {
             throw new AppException('Setting not found');
         }
@@ -81,7 +86,8 @@ class App {
     /**
      * @return Settings
      */
-    public function getSettings() {
+    public function getSettings()
+    {
         return $this->_settings;
     }
 
@@ -89,14 +95,16 @@ class App {
      * @param $key
      * @param $value
      */
-    public function setSetting($key, $value) {
+    public function setSetting($key, $value)
+    {
         $this->_settings->{$key} = $value;
     }
 
     /**
      * @return Client
      */
-    public function getClient() {
+    public function getClient()
+    {
         return $this->_client;
     }
 

@@ -9,9 +9,11 @@ use Afosto\ShopCtrl\Components\Model;
  * @property string  $code                    Gets or sets the code.
  * @property string  $value                   Gets or sets the value.
  */
-class ProductGroupProperty extends Model {
+class ProductGroupProperty extends Model
+{
 
-    public function getMap() {
+    public function getMap()
+    {
         return [
             'cultureId' => 'CultureId',
             'code'      => 'Code',
@@ -19,7 +21,8 @@ class ProductGroupProperty extends Model {
         ];
     }
 
-    public function getRules() {
+    public function getRules()
+    {
         return [
             ['cultureId', 'integer', false],
             ['code', 'string', false],

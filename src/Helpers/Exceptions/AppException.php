@@ -2,6 +2,7 @@
 
 namespace Afosto\ShopCtrl\Helpers\Exceptions;
 
-class AppException extends \Exception {
+class AppException extends \Exception
+{
 
 }

@@ -1,6 +1,8 @@
 <?php
+
 namespace Afosto\ShopCtrl\Helpers\Exceptions;
 
-class GeneratorException extends \Exception {
+class GeneratorException extends \Exception
+{
 
 }

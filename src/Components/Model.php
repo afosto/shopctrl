@@ -6,7 +6,8 @@ use Doctrine\Common\Inflector\Inflector;
 use Psr\Http\Message\ResponseInterface;
 use Afosto\ShopCtrl\Helpers\Exceptions\ApiException;
 
-abstract class Model extends \Afosto\Bp\Components\Model {
+abstract class Model extends \Afosto\Bp\Components\Model
+{
 
     /**
      * @var string
@@ -16,7 +17,8 @@ abstract class Model extends \Afosto\Bp\Components\Model {
     /**
      * @return mixed
      */
-    public function getModel() {
+    public function getModel()
+    {
         return $this->_cleanup(parent::getModel());
     }
 
@@ -25,7 +27,8 @@ abstract class Model extends \Afosto\Bp\Components\Model {
      *
      * @throws ApiException
      */
-    protected function validateResponse(ResponseInterface $response) {
+    protected function validateResponse(ResponseInterface $response)
+    {
         if (substr($response->getStatusCode(), 0, 1) != 2) {
             throw new ApiException($response->getReasonPhrase());
         }
@@ -34,7 +37,8 @@ abstract class Model extends \Afosto\Bp\Components\Model {
     /***
      * @return string
      */
-    protected function getMethod() {
+    protected function getMethod()
+    {
         if ($this->_method === null) {
             $this->_method = Inflector::pluralize((new \ReflectionClass(new static()))->getShortName());
         }
@@ -49,7 +53,8 @@ abstract class Model extends \Afosto\Bp\Components\Model {
      *
      * @return mixed
      */
-    private function _cleanup($modelData) {
+    private function _cleanup($modelData)
+    {
         foreach ($modelData as $key => $value) {
             if (is_array($value)) {
                 $data[$key] = $this->_cleanup($modelData[$key]);

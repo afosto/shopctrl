@@ -1,4 +1,5 @@
 <?php
+
 namespace Afosto\ShopCtrl\Models;
 
 use Afosto\ShopCtrl\Components\Model;
@@ -12,11 +13,13 @@ use Afosto\ShopCtrl\Components\Operations\FindAll;
  * @property string  $foreignCurrencyCode    Gets or sets the foreign currency code.
  * @property float   $rate                   Gets or sets the rate.
  */
-class ExchangeRate extends Model {
+class ExchangeRate extends Model
+{
 
     use FindAll;
 
-    public function getMap() {
+    public function getMap()
+    {
         return [
             'id'                  => 'Id',
             'baseCurrencyId'      => 'BaseCurrencyId',
@@ -27,7 +30,8 @@ class ExchangeRate extends Model {
         ];
     }
 
-    public function getRules() {
+    public function getRules()
+    {
         return [
             ['id', 'integer', true],
             ['baseCurrencyId', 'integer', true],

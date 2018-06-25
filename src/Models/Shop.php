@@ -1,4 +1,5 @@
 <?php
+
 namespace Afosto\ShopCtrl\Models;
 
 use Afosto\ShopCtrl\Components\Operations\FindAll;
@@ -11,11 +12,13 @@ use Afosto\ShopCtrl\Components\Model;
  * @property integer $shopGroupId    Gets or sets the shop group identifier.
  * @property boolean $active         Gets or sets a value indicating whether this is active.
  */
-class Shop extends Model {
+class Shop extends Model
+{
 
     use FindAll;
 
-    public function getMap() {
+    public function getMap()
+    {
         return [
             'id'          => 'Id',
             'name'        => 'Name',
@@ -25,7 +28,8 @@ class Shop extends Model {
         ];
     }
 
-    public function getRules() {
+    public function getRules()
+    {
         return [
             ['id', 'integer', true],
             ['name', 'string', true, 50],
