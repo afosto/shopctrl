@@ -150,7 +150,7 @@ class Order extends Model
             ['customerCode', 'string', false],
             ['customerReference', 'string', false, 50],
             ['customerNote', 'string', false, 2147483647],
-            ['customerRating', 'int', false],
+            ['customerRating', 'integer', false],
             ['shopNote', 'string', false, 2147483647],
             ['syncSource', 'string', false, 50],
             ['customerIpaddress', 'string', false, 40],
