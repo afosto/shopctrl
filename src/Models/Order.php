@@ -4,9 +4,11 @@ namespace Afosto\ShopCtrl\Models;
 
 use Afosto\ShopCtrl\Components\Model;
 use Afosto\ShopCtrl\Components\Operations\Create;
+use Afosto\ShopCtrl\Components\Operations\Delete;
 use Afosto\ShopCtrl\Components\Operations\Find;
 use Afosto\ShopCtrl\Components\Operations\FindAll;
 use Afosto\ShopCtrl\Components\App;
+use Afosto\ShopCtrl\Components\Operations\Update;
 
 /**
  * @property boolean             $recalculateTotalsOnSave       Gets or sets a value indicating whether we should recalculate the totals.
@@ -63,7 +65,7 @@ class Order extends Model
 {
     const REVIEW_DISABLE_INVITE = -3;
 
-    use Find, FindAll, Create;
+    use Find, FindAll, Create, Update, Delete;
 
     public function getMap()
     {
@@ -193,4 +195,8 @@ class Order extends Model
         return $this->findAllUri();
     }
 
+    protected function updateUri()
+    {
+        return 'v1/Orders';
+    }
 }
