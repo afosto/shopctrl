@@ -151,6 +151,7 @@ class Product extends Model
             ['mainImageFileId', 'integer', false],
             ['mainImageChangedTimestamp', '\DateTime', false],
             ['keepStock', 'boolean', true],
+            ['isShippable', 'boolean', true],
             ['minimumStock', 'float', true],
             ['qtyAvailable', 'float', true],
             ['qtyOnHand', 'float', true],
