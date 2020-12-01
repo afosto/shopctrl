@@ -6,6 +6,7 @@ use Afosto\ShopCtrl\Components\App;
 use Afosto\ShopCtrl\Components\Operations\Create;
 use Afosto\ShopCtrl\Components\Operations\Find;
 use Afosto\ShopCtrl\Components\Model;
+use Afosto\ShopCtrl\Components\Operations\Update;
 use Afosto\ShopCtrl\Helpers\Exceptions\ApiException;
 
 /**
@@ -59,7 +60,7 @@ use Afosto\ShopCtrl\Helpers\Exceptions\ApiException;
 class Product extends Model
 {
 
-    use Find, Create;
+    use Find, Create,Update;
 
     /**
      * Returns the property value for the given cultureId and code
