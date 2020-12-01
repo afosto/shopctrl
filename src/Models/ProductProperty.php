@@ -19,8 +19,6 @@ use GuzzleHttp\Exception\ClientException;
 class ProductProperty extends Model
 {
 
-    use Create, Update;
-
     public function getMap()
     {
         return [
@@ -48,31 +46,67 @@ class ProductProperty extends Model
      */
     protected function updateUri($id)
     {
-        return 'v1/Products/' . App::getInstance()->getSetting('productId') . '/Properties';
+        return 'v1/Products/' . $id . '/Properties';
     }
 
     /**
      * @return string
      */
-    protected function createUri()
+    protected function createUri($id)
     {
-        return 'v1/Products/' . App::getInstance()->getSetting('productId') . '/Properties';
+        return 'v1/Products/' . $id . '/Properties';
     }
 
     /**
      * @return static
      * @throws ApiException
      */
-    public function create()
+    public function create($id)
     {
         try {
             $response = App::getInstance()
                            ->getClient()
-                           ->post($this->createUri(), ['json' => $this->getModel()]);
+                           ->post($this->createUri($id), ['json' => $this->getModel()]);
         } catch (ClientException $previous) {
             $e = new ApiException((string)$previous->getResponse()->getBody());
             $e->exception = $previous;
             throw $e;
+        }
+        $content = $response->getBody()->getContents();
+        if ($content == "") {
+            return $this;
+        } else {
+            $this->validateResponse($response);
+            $this->setAttributes(\GuzzleHttp\json_decode($content, true));
+            $this->validate();
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return static
+     * @throws ApiException
+     */
+    public function update($id)
+    {
+        try {
+            $response = App::getInstance()
+                           ->getClient()
+                           ->put($this->updateUri($id), ['json' => $this->getModel()]);
+        } catch (ClientException $previous) {
+            $e = new ApiException((string)$previous->getResponse()->getBody());
+            $e->exception = $previous;
+            throw $e;
+        }
+
+        $content = $response->getBody()->getContents();
+        if ($content == "") {
+            return $this;
+        } else {
+            $this->validateResponse($response);
+            $this->setAttributes(\GuzzleHttp\json_decode((string)$response->getBody(), true));
+            $this->validate();
         }
 
         return $this;
