@@ -32,17 +32,20 @@ class App
     {
         if ($settings->validate()) {
             $this->_settings = $settings;
-            $this->_client = new Client([
-                'base_uri' => $this->_settings->baseUrl,
-                'auth'     => [
-                    $this->_settings->username,
-                    $this->_settings->password,
-                ],
-                'headers'  => [
-                    'User-Agent' => 'Afosto/Client-php/1.0',
-                ],
+            $this->_client = new Client(
+                [
+                    'base_uri' => $this->_settings->baseUrl,
+                    'auth'     => [
+                        $this->_settings->username,
+                        $this->_settings->password,
+                    ],
+                    'timeout'  => 25,
+                    'headers'  => [
+                        'User-Agent' => 'Afosto/Client/2.0',
+                    ],
 
-            ]);
+                ]
+            );
         }
     }
 

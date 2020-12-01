@@ -44,7 +44,7 @@ class Param
      */
     public function __construct($lineData)
     {
-        list($this->name, $this->description, $this->type, $this->additionalInformation) = $lineData;
+        [$this->name, $this->description, $this->type, $this->additionalInformation] = $lineData;
         $this->_validateType();
         $this->_validateAdditionalInformation();
     }

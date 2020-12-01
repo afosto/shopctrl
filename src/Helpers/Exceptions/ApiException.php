@@ -17,4 +17,9 @@ class ApiException extends \Exception
         return (string)$this->exception->getResponse()->getBody();
     }
 
+    public function getException()
+    {
+        return $this->exception;
+    }
+
 }

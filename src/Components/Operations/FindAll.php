@@ -65,8 +65,10 @@ trait FindAll
         try {
             $response = App::getInstance()->getClient()->get(($uri === null) ? $this->findAllUri() : $uri);
         } catch (ClientException $previous) {
-            $e = new ApiException((string)$previous->getRequest()->getUri() . ' | ' . (string)$previous->getResponse()
-                                                                                                       ->getBody());
+            $e = new ApiException(
+                (string)$previous->getRequest()->getUri() . ' | ' . (string)$previous->getResponse()
+                                                                                     ->getBody()
+            );
             $e->exception = $previous;
             throw $e;
         }
@@ -102,8 +104,11 @@ trait FindAll
     private function _getResults(ResponseInterface $response)
     {
         if ($this->offset !== null && $this->limit !== null) {
-            return array_slice(\GuzzleHttp\json_decode((string)$response->getBody(), true), (int)$this->offset,
-                (int)$this->limit);
+            return array_slice(
+                \GuzzleHttp\json_decode((string)$response->getBody(), true),
+                (int)$this->offset,
+                (int)$this->limit
+            );
         } else {
             return \GuzzleHttp\json_decode((string)$response->getBody(), true);
         }

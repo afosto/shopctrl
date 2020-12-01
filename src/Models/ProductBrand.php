@@ -2,7 +2,9 @@
 
 namespace Afosto\ShopCtrl\Models;
 
+use Afosto\ShopCtrl\Components\App;
 use Afosto\ShopCtrl\Components\Model;
+use Afosto\ShopCtrl\Components\Operations\FindAll;
 
 /**
  * @property integer $id                      Gets or sets the identifier.
@@ -11,6 +13,8 @@ use Afosto\ShopCtrl\Components\Model;
  */
 class ProductBrand extends Model
 {
+
+    use FindAll;
 
     public function getMap()
     {
@@ -28,6 +32,15 @@ class ProductBrand extends Model
             ['logoFileID', 'integer', false],
             ['name', 'string', false],
         ];
+    }
+
+    /**
+     * @return string
+     */
+    protected function findAllUri()
+    {
+        return 'v1/ShopGroup/' . App::getInstance()
+                                    ->getSetting('shopId') . '/' . $this->getMethod();
     }
 
 }

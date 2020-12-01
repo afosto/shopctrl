@@ -3,6 +3,7 @@
 namespace Afosto\ShopCtrl\Models;
 
 use Afosto\ShopCtrl\Components\App;
+use Afosto\ShopCtrl\Components\Operations\Create;
 use Afosto\ShopCtrl\Components\Operations\Find;
 use Afosto\ShopCtrl\Components\Model;
 use Afosto\ShopCtrl\Helpers\Exceptions\ApiException;
@@ -20,6 +21,7 @@ use Afosto\ShopCtrl\Helpers\Exceptions\ApiException;
  * @property integer           $mainImageFileId              Gets or sets the main image file identifier.
  * @property \DateTime         $mainImageChangedTimestamp    Gets the changed timestamp of the Main Image.
  * @property boolean           $keepStock                    Gets or sets a value indicating whether [keep stock].
+ * @property boolean           $isShippable                  Gets or sets a value indicating whether [is shippable]. Note: when a product is not shippable, you can not manage stock for the product.
  * @property float             $minimumStock                 Gets or sets the minimum stock.
  * @property float             $qtyAvailable                 Gets or sets the qty available.
  * @property float             $qtyOnHand                    Gets or sets the qty on hand.
@@ -39,7 +41,7 @@ use Afosto\ShopCtrl\Helpers\Exceptions\ApiException;
  * @property float             $priceExVat                   Gets or sets the price ex vat.
  * @property integer           $productPropertyDefSetId      Gets or sets the product property definition set identifier.
  * @property integer           $transportCategoryId          The Transport Category assigned to the Product.
- * @property []                $productGroups                Gets or sets the product groups.
+ * @property int[]             $productGroups                Gets or sets the product groups.
  * @property ProductResource[] $resources                    Gets a list of all Product Resources. Resources can be additional images, documents, etc.
  * @property ProductRelation[] $productRelations             Gets a list of all Product Relations. Relations can exist for cross-sell, up-sell, etc.
  * @property ProductProperty[] $properties                   A collection of translatable Product Properties. Following property codes are system properties which can be used: "Name", "Description", "Published", "DescriptionLong", "MetaTitle", "MetaKeywords", "MetaDescription", "NameTemplate", "DescriptionTemplate", "DescriptionLongTemplate"
@@ -57,7 +59,7 @@ use Afosto\ShopCtrl\Helpers\Exceptions\ApiException;
 class Product extends Model
 {
 
-    use Find;
+    use Find, Create;
 
     /**
      * Returns the property value for the given cultureId and code
@@ -96,6 +98,7 @@ class Product extends Model
             'mainImageFileId'              => 'MainImageFileId',
             'mainImageChangedTimestamp'    => 'MainImageChangedTimestamp',
             'keepStock'                    => 'KeepStock',
+            'isShippable'                  => 'IsShippable',
             'minimumStock'                 => 'MinimumStock',
             'qtyAvailable'                 => 'QtyAvailable',
             'qtyOnHand'                    => 'QtyOnHand',
@@ -219,7 +222,18 @@ class Product extends Model
      */
     public function findByCode($code)
     {
-        return $this->find(null, 'v1/ShopGroup/' . App::getInstance()
-                                                      ->getSetting('shopId') . '/Products/' . $code);
+        return $this->find(
+            null,
+            'v1/ShopGroup/' . App::getInstance()
+                                 ->getSetting('shopId') . '/Products/' . $code
+        );
+    }
+
+    /**
+     * @return string
+     */
+    protected function updateUri($id)
+    {
+        return 'v1/' . $this->getMethod();
     }
 }

@@ -28,9 +28,11 @@ class Scraper extends Command
     public function __construct($name = null)
     {
         parent::__construct($name);
-        $this->_client = new Client([
-            'base_uri' => self::BASE,
-        ]);
+        $this->_client = new Client(
+            [
+                'base_uri' => self::BASE,
+            ]
+        );
     }
 
     /**
@@ -60,9 +62,12 @@ class Scraper extends Command
 
         $output->writeln('Parsing');
         $table = $crawler->filter('table')->slice(($input->getArgument('tableNumber') - 1), 1);
-        $params = $table->filter('tbody > tr')->each(function ($node) {
-            return $this->parseNode($node);
-        });
+        $params = $table->filter('tbody > tr')->each(
+            function ($node)
+            {
+                return $this->parseNode($node);
+            }
+        );
 
         $this->writeFile($params, $input);
     }
@@ -134,7 +139,9 @@ class Scraper extends Command
         $contents[] = '/**';
 
         foreach ($params as $param) {
-            $contents[] = '* @property ' . $param->type . "\t$" . Inflector::camelize($param->name) . "\t" . $param->description;
+            $contents[] = '* @property ' . $param->type . "\t$" . Inflector::camelize(
+                    $param->name
+                ) . "\t" . $param->description;
         }
 
         $contents[] = '*/';
@@ -151,7 +158,6 @@ class Scraper extends Command
         $contents[] = 'public function getMap() {';
         $contents[] = 'return [';
         foreach ($params as $param) {
-
             if ($input->getArgument('requiredOnly') && !$param->required) {
                 continue;
             }
