@@ -9,6 +9,7 @@ use Afosto\ShopCtrl\Components\Model;
  * @property integer $id                                Gets or sets the identifier.
  * @property integer $supplierId                        Gets or sets the supplier identifier.
  * @property string  $supplierSKU                       Gets or sets the supplier stock keeping unit.
+ * @property string  $name                              Gets or sets the name
  * @property float   $purchasePriceExVAT                Gets or sets the purchase price (exclude VAT).
  * @property boolean $available                         Gets or sets the purchase price (exclude VAT).
  * @property boolean $canDropship                       Gets or sets a value indicating whether this is endoflife.
@@ -22,6 +23,7 @@ class PurchaseProduct extends Model {
             'id'                 => 'Id',
             'supplierId'         => 'SupplierId',
             'supplierSKU'        => 'SupplierSKU',
+            'name'               => 'Name',
             'purchasePriceExVAT' => 'PurchasePriceExVAT',
             'exchangeRate'       => 'ExchangeRate',
             'canDropship'        => 'CanDropship',
@@ -35,11 +37,12 @@ class PurchaseProduct extends Model {
             ['id', 'integer', false],
             ['supplierId', 'integer', true],
             ['supplierSKU', 'string', false],
+            ['name', 'string', false],
             ['purchasePriceExVAT', 'float', false],
-            ['exchangeRate', 'float', true],
-            ['canDropship', 'boolean', true],
-            ['endOfLife', 'boolean', true],
-            ['available', 'boolean', true],
+            ['exchangeRate', 'float', false],
+            ['canDropship', 'boolean', false],
+            ['endOfLife', 'boolean', false],
+            ['available', 'boolean', false],
         ];
     }
 
