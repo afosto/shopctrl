@@ -6,29 +6,35 @@ use Afosto\ShopCtrl\Components\App;
 use Afosto\ShopCtrl\Components\Model;
 
 /**
- * @property integer $id                                Gets or sets the identifier.
- * @property integer $supplierId                        Gets or sets the supplier identifier.
- * @property string  $supplierSKU                       Gets or sets the supplier stock keeping unit.
- * @property string  $name                              Gets or sets the name
- * @property float   $purchasePriceExVAT                Gets or sets the purchase price (exclude VAT).
- * @property boolean $available                         Gets or sets the purchase price (exclude VAT).
- * @property boolean $canDropship                       Gets or sets a value indicating whether this is endoflife.
- * @property boolean $endOfLife                         Gets or sets a value indicating whether this is available.
- * @property float   $exchangeRate                      Gets or sets a value indicating whether this is available.
+ * @property integer $id                                 Gets or sets the identifier.
+ * @property integer $supplierId                         Gets or sets the supplier identifier.
+ * @property string  $supplierSKU                        Gets or sets the supplier stock keeping unit.
+ * @property string  $name                               Gets or sets the name
+ * @property float   $purchasePriceExVAT                 Gets or sets the purchase price (exclude VAT).
+ * @property boolean $available                          Gets or sets the purchase price (exclude VAT).
+ * @property boolean $canDropship                        Gets or sets a value indicating whether this is endoflife.
+ * @property boolean $endOfLife                          Gets or sets a value indicating whether this is available.
+ * @property float   $exchangeRate                       Gets or sets a value indicating whether this is available.
+ * @property integer $purchaseOrderUnitQty               Gets or sets a value
+ * @property integer $purchaseOrderMinQty                Gets or sets a value
+ * @property integer $deliverTimeDays                    Gets or sets a value
  */
 class PurchaseProduct extends Model {
 
     public function getMap() {
         return [
-            'id'                 => 'Id',
-            'supplierId'         => 'SupplierId',
-            'supplierSKU'        => 'SupplierSKU',
-            'name'               => 'Name',
-            'purchasePriceExVAT' => 'PurchasePriceExVAT',
-            'exchangeRate'       => 'ExchangeRate',
-            'canDropship'        => 'CanDropship',
-            'endOfLife'          => 'EndOfLife',
-            'available'          => 'Available',
+            'id'                   => 'Id',
+            'supplierId'           => 'SupplierId',
+            'supplierSKU'          => 'SupplierSKU',
+            'name'                 => 'Name',
+            'purchasePriceExVAT'   => 'PurchasePriceExVAT',
+            'exchangeRate'         => 'ExchangeRate',
+            'canDropship'          => 'CanDropship',
+            'endOfLife'            => 'EndOfLife',
+            'available'            => 'Available',
+            'purchaseOrderUnitQty' => 'PurchaseOrderUnitQty',
+            'purchaseOrderMinQty'  => 'PurchaseOrderMinQty',
+            'deliverTimeDays'      => 'DeliverTimeDays',
         ];
     }
 
@@ -43,6 +49,9 @@ class PurchaseProduct extends Model {
             ['canDropship', 'boolean', false],
             ['endOfLife', 'boolean', false],
             ['available', 'boolean', false],
+            ['purchaseOrderUnitQty', 'integer', false],
+            ['purchaseOrderMinQty', 'integer', false],
+            ['deliverTimeDays', 'integer', false],
         ];
     }
 
