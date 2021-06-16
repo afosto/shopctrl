@@ -19,7 +19,7 @@ use GuzzleHttp\Exception\ClientException;
 class ProductSupplier extends Model {
 
 
-    use FindAll;
+    use FindAll,Find;
 
     public function getMap() {
         return [
