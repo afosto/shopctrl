@@ -29,11 +29,10 @@ use Afosto\ShopCtrl\Components\Model;
  * @property string              $shopProductUrl               Optionally specify the url to the product page on the Shop.
  * @property string              $shopProductImageUrl          Optionally specify the url to the product image. When not provided, ShopCtrl will use the image as defined with the ShopCtrl Product.
  * @property OrderRowParameter[] $params                       Gets or sets the parameters.
+ * @property integer             $stockStatus                  Gets or sets the stock status.
  */
-class OrderRow extends Model
-{
-    public function getMap()
-    {
+class OrderRow extends Model {
+    public function getMap() {
         return [
             'id'                        => 'Id',
             'productSelectionProductId' => 'ProductSelectionProductId',
@@ -59,11 +58,11 @@ class OrderRow extends Model
             'shopProductUrl'            => 'ShopProductUrl',
             'shopProductImageUrl'       => 'ShopProductImageUrl',
             'params'                    => 'Params',
+            'stockStatus'               => 'StockStatus',
         ];
     }
 
-    public function getRules()
-    {
+    public function getRules() {
         return [
             ['id', 'integer', false],
             ['productSelectionProductId', 'integer', false],
@@ -89,6 +88,7 @@ class OrderRow extends Model
             ['shopProductUrl', 'string', false, 200],
             ['shopProductImageUrl', 'string', false, 200],
             ['params', 'OrderRowParameter[]', false],
+            ['stockStatus', 'integer', false],
         ];
     }
 
