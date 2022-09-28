@@ -4,6 +4,7 @@ namespace Afosto\ShopCtrl\Components;
 
 use Afosto\ShopCtrl\Helpers\Exceptions\AppException;
 use GuzzleHttp\Client;
+use Psr\Cache\CacheItemPoolInterface;
 
 class App
 {
@@ -65,10 +66,10 @@ class App
     /**
      * @param Settings $settings
      */
-    public static function init(Settings $settings)
+    public static function init(Settings $settings,CacheItemPoolInterface $cache)
     {
         self::$_instance = new self($settings);
-        self::getInstance()->getSettings()->init();
+        self::getInstance()->getSettings()->init($cache);
     }
 
     /**

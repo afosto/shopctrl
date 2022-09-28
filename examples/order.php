@@ -1,5 +1,7 @@
 <?php
 
+require_once dirname(__FILE__) . '/../vendor/autoload.php';
+
 use Afosto\ShopCtrl\Models\ContactInfo;
 use Afosto\ShopCtrl\Models\OrderRow;
 use Afosto\ShopCtrl\Models\Order;
@@ -13,7 +15,7 @@ $settings->username = '';
 $settings->password = '';
 $settings->cultureId = '';
 
-App::init($settings);
+App::init($settings,new \Cache\Adapter\PHPArray\ArrayCachePool());
 
 $contact = new ContactInfo();
 $contact->streetAddress = 'Grondzijl';

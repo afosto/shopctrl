@@ -1,5 +1,7 @@
 <?php
 
+require_once dirname(__FILE__) . '/../vendor/autoload.php';
+
 use Afosto\ShopCtrl\Models\ProductSelection;
 use Afosto\ShopCtrl\Models\Product;
 use Afosto\ShopCtrl\Components\App;
@@ -12,7 +14,7 @@ $settings->username = '';
 $settings->password = '';
 $settings->cultureId = '';
 
-App::init($settings);
+App::init($settings,new \Cache\Adapter\PHPArray\ArrayCachePool());
 
 foreach (ProductSelection::model()->findAll() as $productSelection) {
 

@@ -8,6 +8,7 @@ use Afosto\ShopCtrl\Models\ExchangeRate;
 use Afosto\ShopCtrl\Models\OrderStatus;
 use Afosto\ShopCtrl\Models\PaymentType;
 use Afosto\ShopCtrl\Models\Currency;
+use Psr\Cache\CacheItemPoolInterface;
 
 /**
  * Class Settings
@@ -46,13 +47,64 @@ class Settings extends Model
         ];
     }
 
-    public function init()
+    /**
+     * @param $cache CacheItemPoolInterface
+     *
+     * @return void
+     * @throws \Afosto\ShopCtrl\Helpers\Exceptions\ApiException
+     */
+    public function init(CacheItemPoolInterface $cache)
     {
-        $this->paymentTypes = PaymentType::model()->findAll();
-        $this->orderStatusses = OrderStatus::model()->findAll();
-        $this->exchangeRates = ExchangeRate::model()->findAll();
-        $this->currencies = Currency::model()->findAll();
-        $this->cultures = Culture::model()->findAll();
+        $item = $cache->getItem("paymentTypes");
+
+        if (($types = $item->get()) == null) {
+            $this->paymentTypes = PaymentType::model()->findAll();
+            $item->set($this->paymentTypes);
+            $item->expiresAfter(3600);
+            $cache->save($item);
+        } else {
+            $this->paymentTypes = $types;
+        }
+
+        $item = $cache->getItem("orderStatusses");
+        if (($types = $item->get()) == null) {
+            $this->orderStatusses = OrderStatus::model()->findAll();
+            $item->set($this->orderStatusses);
+            $item->expiresAfter(3600);
+            $cache->save($item);
+        } else {
+            $this->orderStatusses = $types;
+        }
+
+        $item = $cache->getItem("exchangeRates");
+        if (($types = $item->get()) == null) {
+            $this->exchangeRates = ExchangeRate::model()->findAll();
+            $item->set($this->exchangeRates);
+            $item->expiresAfter(3600);
+            $cache->save($item);
+        } else {
+            $this->exchangeRates = $types;
+        }
+
+        $item = $cache->getItem("exchangeRates");
+        if (($types = $item->get()) == null) {
+            $this->currencies = Currency::model()->findAll();
+            $item->set($this->currencies);
+            $item->expiresAfter(3600);
+            $cache->save($item);
+        } else {
+            $this->currencies = $types;
+        }
+
+        $item = $cache->getItem("cultures");
+        if (($types = $item->get()) == null) {
+            $this->cultures = Culture::model()->findAll();
+            $item->set($this->cultures);
+            $item->expiresAfter(3600);
+            $cache->save($item);
+        } else {
+            $this->cultures = $types;
+        }
     }
 
     public function getPaymentTypeId($code)
