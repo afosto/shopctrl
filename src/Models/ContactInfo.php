@@ -9,6 +9,7 @@ use Afosto\ShopCtrl\Components\Model;
  * @property string  $companyName               Gets or sets the name of the company.
  * @property string  $vatNumber                 Gets or sets the VAT number of the company.
  * @property string  $fullName                  Gets or sets the full name.
+ * @property string  $cocNumber                 Gets or sets the Chamber of Commerce number of the company.
  * @property string  $gender                    Gets or sets the gender.
  * @property string  $personTitle               Gets or sets the person title.
  * @property string  $middleName                Gets or sets the middle name.
@@ -38,6 +39,7 @@ class ContactInfo extends Model
             'id'                     => 'Id',
             'companyName'            => 'CompanyName',
             'vatNumber'              => 'VatNumber',
+            'cocNumber'              => 'CocNumber',
             'fullName'               => 'FullName',
             'gender'                 => 'Gender',
             'personTitle'            => 'PersonTitle',
@@ -67,6 +69,7 @@ class ContactInfo extends Model
             ['id', 'integer', false],
             ['companyName', 'string', false, 100],
             ['vatNumber', 'string', false, 50],
+            ['cocNumber', 'string', false, 100],
             ['fullName', 'string', false, 200],
             ['gender', 'string', false, 1],
             ['personTitle', 'string', false, 50],
