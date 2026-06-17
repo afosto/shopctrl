@@ -42,6 +42,7 @@ use Afosto\ShopCtrl\Components\App;
  * @property string              $customerIpaddress             Gets or sets the customer ipaddress.
  * @property float               $discountExVat                 Gets or sets the discount (exclude VAT).
  * @property float               $discountIncVat                Gets or sets the discount (include VAT).
+ * @property float               $downPayment                   Gets or sets the down payment amount (in order currency). Null means no down payment is set for the order.
  * @property ContactInfo         $billToContact                 Gets or sets the bill to contact.
  * @property ContactInfo         $shipToContact                 Gets or sets the ship to contact.
  * @property OrderParameter[]    $params                        Gets or sets the parameters.
@@ -101,6 +102,7 @@ class Order extends Model
             'customerIpaddress'          => 'CustomerIpaddress',
             'discountExVat'              => 'DiscountExVat',
             'discountIncVat'             => 'DiscountIncVat',
+            'downPayment'                => 'DownPayment',
             'billToContact'              => 'BillToContact',
             'shipToContact'              => 'ShipToContact',
             'params'                     => 'Params',
@@ -156,6 +158,7 @@ class Order extends Model
             ['customerIpaddress', 'string', false, 40],
             ['discountExVat', 'float', false],
             ['discountIncVat', 'float', false],
+            ['downPayment', 'float', false],
             ['billToContact', 'ContactInfo', false],
             ['shipToContact', 'ContactInfo', false],
             ['params', 'OrderParameter[]', false],
